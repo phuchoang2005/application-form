@@ -1,12 +1,14 @@
-export default function User() {
-  const id = 36;
-  const path = '/users/' + id
+import UserTable from "../components/UserTable"
 
+export default async function User() {
+  const res = await fetch("http://localhost:8000/users", {
+    method: "GET"
+  }
+  )
+  const data = await res.json()
   return (
     <>
-      <p>I am iron man</p>
-      <p>Click here to extract the user</p>
-      <a href={path}>Click here</a>
+      <UserTable users={data ? data : []} />
     </>
   )
 }

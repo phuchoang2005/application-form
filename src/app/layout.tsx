@@ -10,6 +10,6 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
       <AntdRegistry>{children}</AntdRegistry>
     </body>
   </html>
-);
+)
 
 export default RootLayout;

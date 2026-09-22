@@ -7,7 +7,10 @@ export default async function UserPostPage({
 
   return (
     <div>
-      <p>This is {slug} of user page</p>
+      <p>This is data of user page</p>
+      <div>
+        {slug}
+      </div>
     </div>
   )
 }
