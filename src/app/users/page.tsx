@@ -1,17 +1,16 @@
 import UserTable from "../components/UserTable"
 
 
-export default async function User(props: any) {
-  const LIMIT = 10;
-  const page = props?.searchParams?.page;
-  const res = await fetch(`http://localhost:8000/users?_page=${page}&_limit=${LIMIT}`, {
+export default async function User({ searchParams }: PageProps<'/users'>) {
+  const LIMIT = 1;
+  const { page } = await searchParams;
+  const current_page = typeof page === 'string' ? page : '1';
+  const res = await fetch(`http://localhost:8000/users?_page=${current_page}&_limit=${LIMIT}`, {
     method: "GET"
   }
   )
   const data = await res.json()
 
-  const total_item = 1;
-  const total_page = 3;
 
   return (
     <>
@@ -20,8 +19,8 @@ export default async function User(props: any) {
           data ? data : []
         }
         meta={{
-          pageSize: total_item,
-          total: total_page
+          pageSize: LIMIT,
+          total: 10
         }} />
     </>
   )

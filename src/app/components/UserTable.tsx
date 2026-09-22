@@ -32,10 +32,10 @@ export default function UserTable(props: IProps) {
     },
   ];
 
-  const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
+  const onChange: NonNullable<TableProps<IUser>['onChange']> = (pagination, filters, sorter, extra) => {
     if (pagination && pagination.current) {
       const params = new URLSearchParams(searchParams);
-      params.set('page', pagination.current);
+      params.set('page', pagination.current.toString());
       replace(`${pathname}?${params.toString()}`);
     }
   }
