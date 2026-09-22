@@ -11,8 +11,13 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
   {
+    label: <Link href={'/'}>HomePage</Link >,
+    key: 'home',
+    icon: <MailOutlined />,
+  },
+  {
     label: <Link href={'/users'}>Manage Users</Link >,
-    key: 'mail',
+    key: 'user',
     icon: <MailOutlined />,
   },
   {
@@ -23,7 +28,7 @@ const items: MenuItem[] = [
 ];
 
 const App: React.FC = () => {
-  const [current, setCurrent] = useState('mail');
+  const [current, setCurrent] = useState('home');
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
