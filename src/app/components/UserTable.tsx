@@ -1,14 +1,23 @@
 'use client'
 import { Table, TableProps } from 'antd';
 import { IUser } from '../types/backend';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 interface IProps {
-  users: IUser[] | []
+  users: IUser[] | [],
+  meta: {
+    pageSize: number,
+    total: number
+  }
 }
 
 
 export default function UserTable(props: IProps) {
 
-  const { users } = props;
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const { users, meta } = props;
 
   const columns: TableProps<IUser>['columns'] = [
     {
@@ -23,6 +32,14 @@ export default function UserTable(props: IProps) {
     },
   ];
 
+  const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
+    if (pagination && pagination.current) {
+      const params = new URLSearchParams(searchParams);
+      params.set('page', pagination.current);
+      replace(`${pathname}?${params.toString()}`);
+    }
+  }
+
   return (
     <>
       <Table
@@ -30,9 +47,10 @@ export default function UserTable(props: IProps) {
         bordered
         dataSource={users}
         columns={columns}
+        onChange={onChange}
         pagination={{
           placement: ['bottomCenter'],
-          pageSize: 1
+          ...meta
         }}
       />
     </>
